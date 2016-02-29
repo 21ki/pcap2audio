@@ -6,7 +6,7 @@ rm -fr /tmp/pcapaudio || true
 mkdir /tmp/pcapaudio
 pushd /tmp/pcapaudio > /dev/null
 mkdir out
-rtpbreak -r $fpath -d out > /dev/null
+rtpbreak -r "$fpath" -d out > /dev/null
 
 
 sox -r8000 -c1 -t ul out/rtp.0.0.raw -t wav out/0.wav > /dev/null 2>&1 
@@ -15,9 +15,10 @@ sox -m out/0.wav out/1.wav out/call.wav > /dev/null 2>&1
 sox -t wav out/call.wav -t wav -e signed-integer -c 1 -r 8000 - rate | lame -b 16 - out/call.mp3  > /dev/null 2>&1 
 
 popd > /dev/null
-mv /tmp/pcapaudio/out/call.wav $1.wav
-mv /tmp/pcapaudio/out/call.mp3 $1.mp3
+mv /tmp/pcapaudio/out/call.wav "$1.wav"
+mv /tmp/pcapaudio/out/call.mp3 "$1.mp3"
 
 echo "Wav : $fpath.wav"
 echo "MP3 : $fpath.mp3"
 rm -fr /tmp/pcapaudio
+
